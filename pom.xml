@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.syc.finance.v1.bharat</groupId>
-	<artifactId>Bank-Application</artifactId>
+	<artifactId>Bank-of-Bharat-BOB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Bank-Application</name>
 	<description>Bank Of Bharat</description>
