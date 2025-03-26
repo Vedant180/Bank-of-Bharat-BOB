@@ -1,7 +1,7 @@
 
 # Database Configuration
 server:
-  port: 7777
+  port: 54786
 
 spring:
   datasource:
