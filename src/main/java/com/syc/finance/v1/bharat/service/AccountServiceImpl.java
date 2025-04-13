@@ -70,6 +70,11 @@ public class AccountServiceImpl implements AccountService {
 
         log.info("Creating a new account.");
 
+        // Age constraint check
+        if (userRequest.getAge() < 18) {
+            throw new InvalidAgeException("User must be at least 18 years old to create an account.");
+        }
+
         String userIdGenerated = UUID.randomUUID().toString();
         MapperToResponse mapperToResponse = new MapperToResponse();
 
