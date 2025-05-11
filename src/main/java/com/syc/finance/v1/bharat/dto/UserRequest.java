@@ -21,8 +21,7 @@ public class UserRequest {
         private String designation;
         private String country;
         private String accountType;
-
-
+        private int age;
 
     }
 

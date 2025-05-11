@@ -1,6 +1,8 @@
 package com.syc.finance.v1.bharat.controller;
 
 
+import com.syc.finance.v1.bharat.dto.TransferMoney.TransferMoneyRequest;
+import com.syc.finance.v1.bharat.dto.TransferMoney.TransferMoneyResponse;
 import com.syc.finance.v1.bharat.dto.Update.UpdateAmountManually;
 import com.syc.finance.v1.bharat.dto.Update.UpdateAmountResponse;
 import com.syc.finance.v1.bharat.utils.AccountDeletedSuccessResponse;
@@ -66,6 +68,35 @@ public class AccountController {
 
         AccountDetailsResponse accountDetailsResponse = userService.getYourAccountDetails(accountNumber , IFSCCode , password);
         return new ResponseEntity<AccountDetailsResponse>(accountDetailsResponse , HttpStatus.ACCEPTED);
+    }
+
+
+    @PostMapping("/transfer-money")
+    public ResponseEntity<TransferMoneyResponse> transferMoney(@RequestBody TransferMoneyRequest request) {
+        // 1. Debit from sender
+        DebitCredential debitCredential = new DebitCredential();
+        debitCredential.setAccountNumber(request.getAccountNumberOfSender());
+        debitCredential.setIfscCode(request.getSenderIFSC());
+        debitCredential.setPassword(request.getSenderPassword());
+        debitCredential.setAmount(request.getAmount());
+
+        DebitedResponse debitedResponse = userService.debitYourMoney(debitCredential);
+
+        // 2. Credit to receiver
+        CreditCredential creditCredential = new CreditCredential();
+        creditCredential.setAccountNumber(request.getAccountNumberOfRecipient());
+        creditCredential.setIfscCode(request.getReceiverIFSC());
+        creditCredential.setAmount(request.getAmount());
+
+        CreditResponse creditResponse = userService.creditYourMoney(creditCredential);
+
+        // 3. Construct response
+        TransferMoneyResponse response = new TransferMoneyResponse();
+        response.setDebitedStatus(debitedResponse.getStatusDebit());
+        response.setCreditedStatus(creditResponse.getStatusMoney());
+        response.setResponseMessage("Transfer completed successfully.");
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/balance-enquiry")

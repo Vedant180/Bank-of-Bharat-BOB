@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class TransferMoneyResponse {
 
     private String responseMessage;
+    private String debitedStatus;
+    private String creditedStatus;
 }

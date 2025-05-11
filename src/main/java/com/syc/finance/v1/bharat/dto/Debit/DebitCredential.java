@@ -14,4 +14,5 @@ public class DebitCredential {
     private String password;
     private String ifscCode;
     private double debitYourMoney;
+    private double amount;
 }

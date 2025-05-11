@@ -12,5 +12,6 @@ public class CreditCredential {
     private String ifscCode;
     private String bankName;
     private double creditYourMoney;
+    private double amount;
 
 }

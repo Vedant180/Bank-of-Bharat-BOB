@@ -16,5 +16,9 @@ public class TransferMoneyRequest {
         private String accountNumberOfSender;
         private double transferAmount;
         private LocalDate localDate;
+        private String senderIFSC;
+        private String senderPassword;
+        private double amount;
+        private String receiverIFSC;
 
 }
